@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Product List</h1>
+
+{% if user.is_authenticated and user.is_staff %}
+    <a href="{% url 'product_add' %}">Add New Product</a>
+{% endif %}
+
+<div class="product-grid">
+    {% for product in products %}
+        <div class="product-card">
+            <a href="{% url 'product_detail' product.pk %}">
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" width="150">
+                {% endif %}
+                <h3>{{ product.name }}</h3>
+            </a>
+            <p>${{ product.price }}</p>
+
+            {% if user.is_authenticated and user.is_staff %}
+                <a href="{% url 'product_edit' product.pk %}">Edit</a>
+                <a href="{% url 'product_delete' product.pk %}">Delete</a>
+            {% endif %}
+        </div>
+    {% empty %}
+        <p>No products available.</p>
+    {% endfor %}
+</div>
+{% endblock %}
