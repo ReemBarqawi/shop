@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ object.name }}</h2>
+<p>{{ object.description }}</p>
+<p><strong>Price:</strong> ${{ object.price }}</p>
+<p><strong>Category:</strong> {{ object.category }}</p>
+
+{% if object.image %}
+  <img src="{{ object.image.url }}" alt="{{ object.name }}" style="max-width: 300px;">
+{% endif %}
+
+{% if user.is_staff %}
+  <a href="{% url 'product_edit' object.pk %}">Edit</a> |
+  <a href="{% url 'product_delete' object.pk %}">Delete</a>
+{% endif %}
+{% endblock %}

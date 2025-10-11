@@ -18,7 +18,8 @@
             </a>
             <p>${{ product.price }}</p>
 
-            {% if user.is_authenticated and user.is_staff %}
+            {% comment %} show the edit $ delet button only if the user is staff {% endcomment %}
+            {% if user.is_authenticated and user.is_staff %} 
                 <a href="{% url 'product_edit' product.pk %}">Edit</a>
                 <a href="{% url 'product_delete' product.pk %}">Delete</a>
             {% endif %}
