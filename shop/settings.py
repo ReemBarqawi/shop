@@ -131,6 +131,10 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATICFILES_DIRS = [
+    BASE_DIR / "main_app" / "static",
+]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
@@ -146,3 +150,6 @@ LOGIN_REDIRECT_URL = '/'
 # After logout, redirect to login page
 LOGOUT_REDIRECT_URL = '/'
 
+# Media files (for user-uploaded images)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

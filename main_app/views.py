@@ -1,7 +1,11 @@
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .models import Product
+from .models import Product, Category
+from .forms import CategoryForm
+
 
 # Only allow staff/admin users to access certain views
 class IsStaffMixin(UserPassesTestMixin):
@@ -24,6 +28,8 @@ class ProductDetailView(DetailView):
 
 
 # Admin CRUD pages
+
+#--1--product CRUD
 class ProductCreateView(LoginRequiredMixin, IsStaffMixin, CreateView):
     model = Product
     fields = ['name','description','price','stock','category','image']
@@ -40,3 +46,36 @@ class ProductDeleteView(LoginRequiredMixin, IsStaffMixin, DeleteView):
     model = Product
     template_name = 'main_app/product_confirm_delete.html'
     success_url = reverse_lazy('product_list')
+
+
+#--2-- category CRUD
+
+class CategoryListView(ListView):
+    model = Category
+    template_name = 'main_app/category_list.html'
+    context_object_name = 'categories'
+
+
+class CategoryDetailView(DetailView):
+    model = Category
+    template_name = 'main_app/category_detail.html'
+
+
+class CategoryCreateView(LoginRequiredMixin, IsStaffMixin, CreateView):
+    model = Category
+    fields = ['name']
+    template_name = 'main_app/category_form.html'
+    success_url = reverse_lazy('category_list')
+
+
+class CategoryUpdateView(LoginRequiredMixin, IsStaffMixin, UpdateView):
+    model = Category
+    fields = ['name']
+    template_name = 'main_app/category_form.html'
+    success_url = reverse_lazy('category_list')
+
+
+class CategoryDeleteView(LoginRequiredMixin, IsStaffMixin, DeleteView):
+    model = Category
+    template_name = 'main_app/category_confirm_delete.html'
+    success_url = reverse_lazy('category_list')
