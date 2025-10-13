@@ -102,3 +102,45 @@ class CategoryDeleteView(LoginRequiredMixin, IsStaffMixin, DeleteView):
     template_name = 'main_app/category_confirm_delete.html'
     success_url = reverse_lazy('category_list')
 
+
+#========================================================
+# Customer pages 
+
+# Product detail 
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = 'main_app/customer/product_detail.html'
+    context_object_name = 'product'
+
+# Cart
+@login_required
+def cart_view(request):
+   
+    cart = request.session.get('cart', {})
+    products_in_cart = Product.objects.filter(id__in=cart.keys())
+    total_price = sum([product.price * cart[str(product.id)] for product in products_in_cart])
+    
+    context = {
+        'products': products_in_cart,
+        'cart': cart,
+        'total_price': total_price
+    }
+    return render(request, 'main_app/customer/cart.html', context)
+
+
+@login_required
+def checkout_view(request):
+    if request.method == 'POST':
+        request.session['cart'] = {}
+        return redirect('product_list')
+    
+    cart = request.session.get('cart', {})
+    products_in_cart = Product.objects.filter(id__in=cart.keys())
+    total_price = sum([product.price * cart[str(product.id)] for product in products_in_cart])
+    
+    context = {
+        'products': products_in_cart,
+        'cart': cart,
+        'total_price': total_price
+    }
+    return render(request, 'main_app/customer/checkout.html', context)
