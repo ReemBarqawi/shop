@@ -6,6 +6,28 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Product, Category
 from .forms import CategoryForm
 
+from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import render, redirect
+
+def signup(request):
+    error_message = ''
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)  # تسجيل الدخول مباشرة بعد التسجيل
+            return redirect('product_list')  # أو أي صفحة تحبي توجهي المستخدم بعدها
+        else:
+            error_message = 'Invalid sign up - try again'
+    else:
+        form = UserCreationForm()
+    
+    context = {'form': form, 'error_message': error_message}
+    return render(request, 'registration/signup.html', context)
+
+
+
 
 # Only allow staff/admin users to access certain views
 class IsStaffMixin(UserPassesTestMixin):
@@ -79,3 +101,4 @@ class CategoryDeleteView(LoginRequiredMixin, IsStaffMixin, DeleteView):
     model = Category
     template_name = 'main_app/category_confirm_delete.html'
     success_url = reverse_lazy('category_list')
+

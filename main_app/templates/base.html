@@ -10,6 +10,9 @@
 <nav>
     <div>
         <a href="{% url 'product_list' %}">Home</a>
+
+
+
         {% if user.is_authenticated and user.is_staff %}
             <a href="{% url 'category_list' %}">Categories</a>
         {% endif %}
@@ -22,6 +25,7 @@
                     <button type="submit">Logout</button>
                 </form>
             {% else %}
+                <a href="{% url 'signup' %}">Sign Up</a>
                 <a href="{% url 'login' %}">Login</a>
             {% endif %}
         </div>

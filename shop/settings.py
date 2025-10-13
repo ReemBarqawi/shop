@@ -150,6 +150,9 @@ LOGIN_REDIRECT_URL = '/'
 # After logout, redirect to login page
 LOGOUT_REDIRECT_URL = '/'
 
+LOGIN_REDIRECT_URL = 'product_list'  
+LOGOUT_REDIRECT_URL = 'product_list'
+
 # Media files (for user-uploaded images)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'

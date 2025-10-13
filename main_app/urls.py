@@ -5,9 +5,15 @@ from .views import (
     CategoryListView, CategoryDetailView,
     CategoryCreateView, CategoryUpdateView, CategoryDeleteView
 )
+from .views import signup
+
 
 
 urlpatterns = [
+    # Sign up
+    path('accounts/signup/', signup, name='signup'),
+
+
     #  Products
     path('', ProductListView.as_view(), name='product_list'),
     path('product/<int:pk>/', ProductDetailView.as_view(), name='product_detail'),
