@@ -16,8 +16,8 @@ def signup(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user)  # تسجيل الدخول مباشرة بعد التسجيل
-            return redirect('product_list')  # أو أي صفحة تحبي توجهي المستخدم بعدها
+            login(request, user)  
+            return redirect('product_list') 
         else:
             error_message = 'Invalid sign up - try again'
     else:
