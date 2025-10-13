@@ -7,7 +7,7 @@ from .views import (
 )
 from .views import signup
 
-
+from .views import cart_view, checkout_view
 
 urlpatterns = [
     # Sign up
