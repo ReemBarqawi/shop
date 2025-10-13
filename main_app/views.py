@@ -10,6 +10,12 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 
+
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Product, Order, OrderItem
+
+
 def signup(request):
     error_message = ''
     if request.method == 'POST':
@@ -106,41 +112,43 @@ class CategoryDeleteView(LoginRequiredMixin, IsStaffMixin, DeleteView):
 #========================================================
 # Customer pages 
 
-# Product detail 
-class ProductDetailView(DetailView):
-    model = Product
-    template_name = 'main_app/customer/product_detail.html'
-    context_object_name = 'product'
-
-# Cart
 @login_required
 def cart_view(request):
-   
-    cart = request.session.get('cart', {})
-    products_in_cart = Product.objects.filter(id__in=cart.keys())
-    total_price = sum([product.price * cart[str(product.id)] for product in products_in_cart])
-    
-    context = {
-        'products': products_in_cart,
-        'cart': cart,
-        'total_price': total_price
-    }
-    return render(request, 'main_app/customer/cart.html', context)
+    # جلب أو إنشاء order مؤقت للمستخدم
+    order, created = Order.objects.get_or_create(user=request.user, status='Pending')
+    items = order.items.all()
+    return render(request, 'main_app/cart.html', {'order': order, 'items': items})
 
+@login_required
+def add_to_cart(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    if product.stock <= 0:
+        return redirect('product_detail', pk=product.id)  # لا يوجد stock
+
+    order, created = Order.objects.get_or_create(user=request.user, status='Pending')
+    order_item, created = OrderItem.objects.get_or_create(order=order, product=product)
+    if not created:
+        order_item.quantity += 1
+        order_item.save()
+    return redirect('cart')
+
+@login_required
+def remove_from_cart(request, item_id):
+    item = get_object_or_404(OrderItem, id=item_id)
+    item.delete()
+    return redirect('cart')
 
 @login_required
 def checkout_view(request):
+    order = get_object_or_404(Order, user=request.user, status='Pending')
     if request.method == 'POST':
-        request.session['cart'] = {}
-        return redirect('product_list')
-    
-    cart = request.session.get('cart', {})
-    products_in_cart = Product.objects.filter(id__in=cart.keys())
-    total_price = sum([product.price * cart[str(product.id)] for product in products_in_cart])
-    
-    context = {
-        'products': products_in_cart,
-        'cart': cart,
-        'total_price': total_price
-    }
-    return render(request, 'main_app/customer/checkout.html', context)
+        # تحديث stock للمنتجات
+        for item in order.items.all():
+            item.product.stock -= item.quantity
+            item.product.save()
+        # تحديث حالة الطلب
+        order.status = 'Shipped'  # أو Pending لو بدك يتغير بعد الدفع
+        order.save()
+        return render(request, 'main_app/checkout_success.html', {'order': order})
+
+    return render(request, 'main_app/checkout.html', {'order': order})

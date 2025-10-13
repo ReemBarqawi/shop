@@ -1,40 +1,42 @@
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Shop</title>
-        {% load static %}
-        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    </head>
-    <body>
-<nav>
-    <div>
-        <a href="{% url 'product_list' %}">Home</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shop</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <nav>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <a href="{% url 'product_list' %}">Home</a>
 
-
-
-        {% if user.is_authenticated and user.is_staff %}
-            <a href="{% url 'category_list' %}">Categories</a>
-        {% endif %}
-        
-        <div style="margin-left: auto; display: flex; align-items: center; gap: 1rem;">
-            {% if user.is_authenticated %}
-                <span>Welcome, {{ user.username }}</span>
-                <form action="{% url 'logout' %}" method="post" style="display:inline;">
-                    {% csrf_token %}
-                    <button type="submit">Logout</button>
-                </form>
-            {% else %}
-                <a href="{% url 'signup' %}">Sign Up</a>
-                <a href="{% url 'login' %}">Login</a>
+            {% if user.is_authenticated and user.is_staff %}
+                <a href="{% url 'category_list' %}">Categories</a>
             {% endif %}
-        </div>
-    </div>
-</nav>
 
-        <div class="container">
-            {% block content %}
-            {% endblock %}
+            <div style="margin-left: auto; display: flex; align-items: center; gap: 1rem;">
+                {% if user.is_authenticated %}
+                    {% if not user.is_staff %}
+                        <!-- Cart link for regular customers -->
+                        <a href="{% url 'cart' %}">Cart</a>
+                    {% endif %}
+                    <span>Welcome, {{ user.username }}</span>
+                    <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit">Logout</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'signup' %}">Sign Up</a>
+                    <a href="{% url 'login' %}">Login</a>
+                {% endif %}
+            </div>
         </div>
-    </body>
-    </html>
+    </nav>
+
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

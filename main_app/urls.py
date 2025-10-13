@@ -7,7 +7,7 @@ from .views import (
 )
 from .views import signup
 
-from .views import cart_view, checkout_view
+from .views import cart_view, add_to_cart, remove_from_cart, checkout_view
 
 urlpatterns = [
     # Sign up
@@ -26,4 +26,11 @@ urlpatterns = [
     path('categories/add/', CategoryCreateView.as_view(), name='category_add'),
     path('categories/<int:pk>/edit/', CategoryUpdateView.as_view(), name='category_edit'),
     path('categories/<int:pk>/delete/', CategoryDeleteView.as_view(), name='category_delete'),
+
+    # cart
+    path('cart/', cart_view, name='cart'),
+    path('cart/add/<int:product_id>/', add_to_cart, name='add_to_cart'),
+    path('cart/remove/<int:item_id>/', remove_from_cart, name='remove_from_cart'),
+    # checkout
+    path('checkout/', checkout_view, name='checkout'),
 ]
