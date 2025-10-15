@@ -15,24 +15,19 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Product, Order, OrderItem
 
-from .forms import AdminSignUpForm
-from django.contrib.auth import login
+
 def signup(request):
     error_message = ''
     if request.method == 'POST':
-        form = AdminSignUpForm(request.POST)
+        form = UserCreationForm(request.POST)
         if form.is_valid():
-            user = form.save(commit=False)
-            if form.cleaned_data.get('make_admin'):
-                user.is_staff = True
-                user.is_superuser = True  # لو بدك يكون Admin كامل
-            user.save()
-            login(request, user)
-            return redirect('product_list')
+            user = form.save()
+            login(request, user)  
+            return redirect('product_list') 
         else:
             error_message = 'Invalid sign up - try again'
     else:
-        form = AdminSignUpForm()
+        form = UserCreationForm()
     
     context = {'form': form, 'error_message': error_message}
     return render(request, 'registration/signup.html', context)
