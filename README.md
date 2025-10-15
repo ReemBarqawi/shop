@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="docs/cozycart_logo2.png" alt="CozyCart Logo" width="130"/>
+  <img src="docs/cozycart_logo2.png" alt="CozyCart Logo" width="130" width="150" style="border-radius: 50%; background: none; display: block; margin: auto;"/>
 
   # 🛍️ **CozyCart**
   ### *A Mini E-Commerce System Built with Django*
