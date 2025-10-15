@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="docs/cozycart_logo.png" alt="CozyCart Logo" width="130"/>
+  <img src="docs/cozycart_logo2.png" alt="CozyCart Logo" width="130"/>
 
   # 🛍️ **CozyCart**
   ### *A Mini E-Commerce System Built with Django*
@@ -100,9 +100,9 @@ pip install -r requirements.txt
 Create a .env file in the root directory:
 
 ```bash
-SECRET_KEY=your_secret_key
+SECRET_KEY=django-insecure-CHANGE_THIS_SECRET_KEY
 DEBUG=True
-DATABASE_URL=postgres://username:password@localhost:5432/cozycart
+DATABASE_URL=postgres://postgres:reem1234@localhost:5432/shop_db
 ```
 
 5️⃣ Run migrations and start the server
