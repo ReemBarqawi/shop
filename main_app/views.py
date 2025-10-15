@@ -15,19 +15,24 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Product, Order, OrderItem
 
-
+from .forms import AdminSignUpForm
+from django.contrib.auth import login
 def signup(request):
     error_message = ''
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = AdminSignUpForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            login(request, user)  
-            return redirect('product_list') 
+            user = form.save(commit=False)
+            if form.cleaned_data.get('make_admin'):
+                user.is_staff = True
+                user.is_superuser = True  # لو بدك يكون Admin كامل
+            user.save()
+            login(request, user)
+            return redirect('product_list')
         else:
             error_message = 'Invalid sign up - try again'
     else:
-        form = UserCreationForm()
+        form = AdminSignUpForm()
     
     context = {'form': form, 'error_message': error_message}
     return render(request, 'registration/signup.html', context)
@@ -114,7 +119,7 @@ class CategoryDeleteView(LoginRequiredMixin, IsStaffMixin, DeleteView):
 
 @login_required
 def cart_view(request):
-    # جلب أو إنشاء order مؤقت للمستخدم
+    
     order, created = Order.objects.get_or_create(user=request.user, status='Pending')
     items = order.items.all()
     return render(request, 'main_app/cart.html', {'order': order, 'items': items})
@@ -123,7 +128,7 @@ def cart_view(request):
 def add_to_cart(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     if product.stock <= 0:
-        return redirect('product_detail', pk=product.id)  # لا يوجد stock
+        return redirect('product_detail', pk=product.id)  
 
     order, created = Order.objects.get_or_create(user=request.user, status='Pending')
     order_item, created = OrderItem.objects.get_or_create(order=order, product=product)
@@ -142,12 +147,12 @@ def remove_from_cart(request, item_id):
 def checkout_view(request):
     order = get_object_or_404(Order, user=request.user, status='Pending')
     if request.method == 'POST':
-        # تحديث stock للمنتجات
+       
         for item in order.items.all():
             item.product.stock -= item.quantity
             item.product.save()
-        # تحديث حالة الطلب
-        order.status = 'Shipped'  # أو Pending لو بدك يتغير بعد الدفع
+       
+        order.status = 'Shipped' 
         order.save()
         return render(request, 'main_app/checkout_success.html', {'order': order})
 
