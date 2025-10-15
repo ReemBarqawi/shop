@@ -131,6 +131,38 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATIC_ROOT = Path(BASE_DIR, 'staticfiles')
+
+
+MIDDLEWARE+= 'whitenoise.middleware.WhiteNoiseMiddleware',
+ALLOWED_HOSTS += ['.onrender.com','localhost','127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://*.onrender.com']
+
+
+
+
+DATABASE_URL = os.getenv("DATABASE_URL")
+if DATABASE_URL:
+    DATABASES = {
+        "default": dj_database_url.parse(
+            DATABASE_URL,
+            conn_max_age=600,
+            ssl_require=not DEBUG
+        )
+    }
+else:
+    DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DB_NAME'),  # same name as your .env file
+        'USER': 'postgres',
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': 'localhost',  
+        'PORT': '5432',
+    }
+}
+
+
 STATICFILES_DIRS = [
     BASE_DIR / "main_app" / "static",
 ]
@@ -143,7 +175,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Redirect to login page if user is not logged in
 LOGIN_URL = '/auth/login/'
 
-# After login, redirect to home page 
+# After login, redirect to home page    
 LOGIN_REDIRECT_URL = '/'
 
 
