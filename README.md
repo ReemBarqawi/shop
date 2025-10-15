@@ -1,23 +1,35 @@
-# 🛍️ Shop — Mini E-Commerce System
+<div align="center">
+  <img src="docs/cozycart_logo.png" alt="CozyCart Logo" width="130"/>
 
-**Author:** Reem Barqawi  
-**Framework:** Django (Python)  
-**Database:** PostgreSQL  
+  # 🛍️ **CozyCart**
+  ### *A Mini E-Commerce System Built with Django*
+  **Author:** Reem Barqawi  
+  **Framework:** Django (Python) • **Database:** PostgreSQL  
+</div>
 
 ---
 
-## 📖 Project Overview
+## 📖 Overview
 
-This project is a **Mini E-Commerce System** built with Django as part of the final General Assembly project.  
-The system allows an **admin** to add, edit, and delete products (CRUD functionality),  
-and will later allow **customers** to browse and view products.  
+**CozyCart** is a **Mini E-Commerce System** built with Django as part of my final General Assembly project.  
+It’s designed to provide a simple yet elegant shopping experience:
 
-The goal is to demonstrate my understanding of:
-- Django models, views, and templates (MVT)
-- Authentication & authorization
-- PostgreSQL integration
-- Front-end design with responsive CSS
-- Git workflow and version control
+- 🧑‍💼 **Admins** can manage products and categories (CRUD operations).  
+- 🛍️ **Customers** can browse and view products add products to cart .  
+
+The project demonstrates my understanding of:  
+✅ Django Models, Views, and Templates (MVT)  
+✅ Authentication & Authorization  
+✅ PostgreSQL integration  
+✅ Responsive front-end with CSS  
+✅ Git workflow and version control  
+
+---
+
+## 💡 Background
+
+I created this project to strengthen my backend development skills and understand how **real-world web apps** manage data, users, and authentication.  
+**CozyCart** represents a key step in my journey toward becoming a professional **full-stack developer**.
 
 ---
 
@@ -34,22 +46,109 @@ The goal is to demonstrate my understanding of:
 
 ---
 
-## 🧩 Current Features
+## ✨ Features
 
-✅ Django project structure created  
+✅ Django project structure set up  
 ✅ PostgreSQL database connected  
-✅ `.env` configuration for secure settings  
-✅ Initial migrations applied  
+✅ Secure `.env` configuration  
+✅ User authentication (Sign Up, Login, Logout)  
+✅ Admin/Customer role separation  
+✅ CRUD functionality for products and categories  
+✅ Responsive front-end layout  
 
-🚧 *Next steps:*  
-- Add Product & Category models  
-- Register models in Admin  
-- Implement CRUD (Create, Read, Update, Delete)  
-- Add authentication  
-- Design frontend templates  
+---
+
+## 🚀 Future Improvements
+
+- 💳 Payment integration (Stripe)    
+- 🎨 Improve UI using Tailwind CSS or Bootstrap  
+- 📊 Add admin analytics dashboard  
 
 ---
 
 ## 🧱 Entity-Relationship Diagram (ERD)
 
 ![ERD Diagram](docs/erd.png)
+
+---
+
+
+## 🪄 Getting Started
+
+### 1️⃣ Clone the repository  
+```bash
+git clone https://git.generalassemb.ly/reembarqawi/shop
+cd mini_shop_project
+```
+
+2️⃣ Create a virtual environment
+
+```bash
+python -m venv venv
+Mac/Linux:  source name-of-venv/bin/activate
+Windows:  source name-of-venv/scripts/activate
+```
+
+3️⃣ Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+4️⃣ Configure environment variables
+
+Create a .env file in the root directory:
+
+```bash
+SECRET_KEY=your_secret_key
+DEBUG=True
+DATABASE_URL=postgres://username:password@localhost:5432/cozycart
+```
+
+5️⃣ Run migrations and start the server
+
+```bash
+python manage.py migrate
+python manage.py runserver
+```
+
+6️⃣ Open in browser
+👉 http://127.0.0.1:8000
+
+---
+
+🌟 Lessons Learned
+
+This project helped me:
+
+Set up and structure a Django project from scratch
+
+Work with PostgreSQL databases
+
+Implement authentication & user roles
+
+Build clean and maintainable HTML templates
+
+---
+
+🧩 Attributions
+
+Django Documentation
+
+PostgreSQL
+
+Pillow
+
+Font Awesome
+
+---
+
+👩🏻‍💻 Author
+
+Reem Barqawi
+🎓 Business Information Technology Graduate
+📊 Aspiring Data Analyst & Web Developer
+[🔗 LinkedIn](https://www.linkedin.com/in/reem-barqawi200)
+
+---
+<div align="center"> <sub>✨ Built with passion & curiosity — CozyCart © 2025 ✨</sub> </div> ```

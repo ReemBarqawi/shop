@@ -397,6 +397,105 @@ a.btn-cancel {
 }
 
 /* ========================================
+   CART PAGE
+======================================== */
+.cart-table {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 2rem 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.cart-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.cart-table th {
+  background: linear-gradient(135deg, #e3f2fd 0%, #fce4ec 100%);
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: #0277bd;
+  border-bottom: 2px solid #f48fb1;
+}
+
+.cart-table td {
+  padding: 1.2rem 1rem;
+  border-bottom: 1px solid #f0f0f0;
+  color: #555;
+}
+
+.cart-table tr:last-child td {
+  border-bottom: none;
+}
+
+.cart-table tr:hover {
+  background: #fafafa;
+}
+
+.cart-total {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem 2rem;
+  margin: 1.5rem 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  text-align: right;
+}
+
+.cart-total h3 {
+  color: #d81b60;
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+.cart-actions {
+  text-align: right;
+  margin-top: 1.5rem;
+}
+
+.cart-actions a {
+  background: linear-gradient(135deg, #4fc3f7 0%, #f48fb1 100%);
+  color: white;
+  padding: 0.8rem 2rem;
+  border-radius: 25px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.cart-actions a:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(79, 195, 247, 0.4);
+}
+
+.empty-cart {
+  text-align: center;
+  background: white;
+  padding: 3rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  margin: 2rem 0;
+}
+
+.empty-cart p {
+  color: #999;
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.remove-link {
+  color: #f06292;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+/* ========================================
    LINKS
 ======================================== */
 a {
@@ -426,6 +525,7 @@ a[href*="products"] {
 a[href*="products"]:hover {
   background: #bbdefb;
 }
+
 
 /* ========================================
    DELETE CONFIRMATION

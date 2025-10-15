@@ -9,6 +9,11 @@
 <body>
     <nav>
         <div style="display: flex; align-items: center; gap: 1rem;">
+            
+            <div class="logo">
+                <img src="{% static 'images/logo.png' %}" alt="Cozy Cart Logo" style="height: 120px; width: auto;">
+            </div>
+
             <a href="{% url 'product_list' %}">Home</a>
 
             {% if user.is_authenticated and user.is_staff %}
