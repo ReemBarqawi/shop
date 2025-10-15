@@ -13,7 +13,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Load environment variables from .env
 load_dotenv(BASE_DIR / ".env")
 
-# Quick-start development settings - unsuitable for production
+# SECURITY
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-default-key')
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
@@ -47,7 +47,7 @@ ROOT_URLCONF = 'shop.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / "templates"],  # optional, if you have a global templates folder
+        'DIRS': [BASE_DIR / "templates"],  # حطي هذا إذا عندك مجلد templates
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
