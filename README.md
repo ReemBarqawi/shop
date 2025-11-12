@@ -11,7 +11,7 @@
 
 ## 📖 Overview
 
-**CozyCart** is a **Mini E-Commerce System** built with Django as part of my final General Assembly project.  
+CozyCart is a lightweight e-commerce application built with Django as my capstone project for the General Assembly Bridging Program. 
 It’s designed to provide a simple yet elegant shopping experience:
 
 - 🧑‍💼 **Admins** can manage products and categories (CRUD operations).  
@@ -40,7 +40,6 @@ I created this project to strengthen my backend development skills and understan
 | **Backend Framework** | Django 5.x |
 | **Database** | PostgreSQL |
 | **Environment Management** | python-dotenv |
-| **Image Handling** | Pillow |
 | **Frontend** | HTML, CSS |
 | **Version Control** | Git & GitHub |
 
@@ -131,22 +130,10 @@ Build clean and maintainable HTML templates
 
 ---
 
-🧩 Attributions
-
-Django Documentation
-
-PostgreSQL
-
-Pillow
-
-Font Awesome
-
----
 
 👩🏻‍💻 Author
 
 Reem Barqawi
-🎓 Business Information Technology Graduate
 📊 Aspiring Data Analyst & Web Developer
 [🔗 LinkedIn](https://www.linkedin.com/in/reem-barqawi200)
 
